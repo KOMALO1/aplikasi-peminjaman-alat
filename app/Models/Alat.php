@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Alat extends Model
 {
     //
+    protected $guarded = ["id"];
+
     public function kategori()
     {
+
 
         return $this->belongsTo(Kategori::class);
     }

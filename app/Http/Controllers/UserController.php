@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Peminjaman;
 use App\Models\User;
-use App\Models\Alat;
-
 use Illuminate\Http\Request;
 
-class PeminjamanController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +13,9 @@ class PeminjamanController extends Controller
     public function index()
     {
         //
-        $peminjamans = Peminjaman::with(['user.role'])->get();
+        $user = User::all();
 
-        return view("admin.dashboard", compact('peminjamans'));
+        return view("admin.user.daftaruser", compact("user"));
     }
 
     /**
@@ -27,6 +24,7 @@ class PeminjamanController extends Controller
     public function create()
     {
         //
+        return view("admin.user.tambahuser");
     }
 
     /**
@@ -34,13 +32,24 @@ class PeminjamanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        User::create([
+
+
+            "name" => $request->name,
+            "email" => $request->email,
+            "password" => $request->password,
+            "role" => $request->role
+
+        ]);
+        return redirect("/user");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Peminjaman $peminjaman)
+    public function show(User $user)
     {
         //
     }
@@ -48,7 +57,7 @@ class PeminjamanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Peminjaman $peminjaman)
+    public function edit(User $user)
     {
         //
     }
@@ -56,7 +65,7 @@ class PeminjamanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Peminjaman $peminjaman)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -64,7 +73,7 @@ class PeminjamanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Peminjaman $peminjaman)
+    public function destroy(User $user)
     {
         //
     }
