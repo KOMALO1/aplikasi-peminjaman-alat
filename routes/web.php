@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlatController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\UserController;
@@ -12,3 +13,4 @@ Route::get('/', function () {
 Route::resource("/peminjaman", PeminjamanController::class);
 Route::resource("/user", UserController::class);
 Route::resource("/kategori", KategoriController::class);
+Route::resource("/alat", AlatController::class);

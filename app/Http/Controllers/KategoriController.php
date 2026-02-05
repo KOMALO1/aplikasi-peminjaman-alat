@@ -67,7 +67,7 @@ class KategoriController extends Controller
     public function update(Request $request, Kategori $kategori)
     {
         //
-        Kategori::create([
+        $kategori->update([
 
             "nama" => $request->nama
 
