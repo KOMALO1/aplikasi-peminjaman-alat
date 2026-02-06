@@ -16,9 +16,9 @@ class PeminjamanController extends Controller
     public function index()
     {
         //
-        $peminjamans = Peminjaman::with(['user.role'])->get();
+        $peminjamans = Peminjaman::with(['user', 'alat'])->get();
 
-        return view("admin.dashboard", compact('peminjamans'));
+        return view("admin.peminjaman.daftarpeminjaman", compact('peminjamans'));
     }
 
     /**
@@ -27,6 +27,10 @@ class PeminjamanController extends Controller
     public function create()
     {
         //
+        $alat = Alat::all();
+        $user = User::all();
+
+        return view("admin.peminjaman.tambahpeminjaman", compact("alat", "user"));
     }
 
     /**
@@ -35,6 +39,16 @@ class PeminjamanController extends Controller
     public function store(Request $request)
     {
         //
+        Peminjaman::create([
+
+
+            "user_id" => auth()->user_id,
+            "alat_id" => $request->alat_id,
+
+
+        ]);
+
+        return redirect("/peminjaman");
     }
 
     /**

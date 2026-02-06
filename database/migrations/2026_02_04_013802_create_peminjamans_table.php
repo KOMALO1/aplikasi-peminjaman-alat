@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('peminjamans', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained()->cascadeOnDelete();
+            $table->foreignid("alat_id")->constrained()->cascadeOnDelete();
+            $table->foreignid("kategori_id")->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
