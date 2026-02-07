@@ -27,10 +27,15 @@
 
 
             @foreach ($alat as $a)
-                <option value="{{ $a->nama }}">{{ $a->nama }}</option>
+                <option value="{{ $a->id }}">{{ $a->nama }} </option>
             @endforeach
 
         </select>
+
+        <label>Tanggal Pengembalian</label>
+        <input type="date" name="tanggal_pengembalian">
+
+        <input type="text" name="persetujuan" value="menunggu" hidden>
 
         <button type="submit">Simpan</button>
 

@@ -16,7 +16,9 @@ return new class extends Migration
             $table->foreignId("user_id")->constrained()->cascadeOnDelete();
             $table->foreignid("alat_id")->constrained()->cascadeOnDelete();
             $table->foreignid("kategori_id")->constrained()->cascadeOnDelete();
-            $table->timestamps();
+            $table->timestamp("tanggal_meminjam")->useCurrent();
+            $table->date("tanggal_pengembalian");
+            $table->enum("persetujuan", ["menunggu", "diterima", "ditolak"])->default("menunggu");
         });
     }
 

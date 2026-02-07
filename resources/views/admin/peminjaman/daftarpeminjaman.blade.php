@@ -10,14 +10,16 @@
 
 <body>
 
-    <table>
+    <table border="2">
         <tr>
             <th>No</th>
+            <th>Nama Peminjam</th>
             <th>Nama Alat</th>
             <th>Kategori</th>
-            <th>Nama Peminjam</th>
+
             <th>Tanngal Peminjaman</th>
             <th>Tanggal Pengembalian</th>
+            <th>Persetujuan</th>
             <th colspan="2">Action</th>
         </tr>
 
@@ -29,6 +31,28 @@
                 <td>{{ $p->user->name }}</td>
                 <td>{{ $p->alat->nama }}</td>
                 <td>{{ $p->alat->kategori->nama }}</td>
+                <td>{{ $p->tanggal_meminjam }}</td>
+                <td>{{ $p->tanggal_pengembalian }}</td>
+                <td>{{ $p->persetujuan }}</td>
+
+                <td>
+                    <form action="peminjaman/{{ $p->id }}/edit" method="get">
+                        @csrf
+
+                        <button type="submit">Edit</button>
+                    </form>
+
+                </td>
+                <td>
+                    <form action="peminjaman/{{ $p->id }}" method="POST">
+
+                        @csrf
+                        @method('delete')
+
+                        <button type="submit">Delete</button>
+
+                    </form>
+                </td>
 
             </tr>
         @endforeach

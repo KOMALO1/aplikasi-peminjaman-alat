@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Peminjaman;
 use App\Models\User;
 use App\Models\Alat;
-
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 class PeminjamanController extends Controller
@@ -27,10 +27,11 @@ class PeminjamanController extends Controller
     public function create()
     {
         //
-        $alat = Alat::all();
+        $kategori = Kategori::all();
+        $alat = Alat::with(["kategori"])->get();
         $user = User::all();
 
-        return view("admin.peminjaman.tambahpeminjaman", compact("alat", "user"));
+        return view("admin.peminjaman.tambahpeminjaman", compact("alat", "user", "kategori"));
     }
 
     /**
@@ -39,13 +40,16 @@ class PeminjamanController extends Controller
     public function store(Request $request)
     {
         //
+        $alat = Alat::where('id', $request->alat_id)->first();
         Peminjaman::create([
 
 
-            "user_id" => auth()->user_id,
+            "user_id" => auth()->id(),
             "alat_id" => $request->alat_id,
+            "kategori_id" => $alat->kategori_id,
 
-
+            "tanggal_pengembalian" => $request->tanggal_pengembalian,
+            "persetujuan" => $request->persetujuan
         ]);
 
         return redirect("/peminjaman");
@@ -65,6 +69,11 @@ class PeminjamanController extends Controller
     public function edit(Peminjaman $peminjaman)
     {
         //
+        $peminjamanalat = Alat::all();
+        $persetujuan = Peminjaman::all();
+
+
+        return view("admin.peminjaman.ubahpeminjaman", compact("peminjaman", "peminjamanalat", "persetujuan"));
     }
 
     /**
@@ -73,6 +82,20 @@ class PeminjamanController extends Controller
     public function update(Request $request, Peminjaman $peminjaman)
     {
         //
+
+
+        $alat = Alat::where('id', $request->alat_id)->first();
+        $peminjaman->update([
+
+            "user_id" => auth()->id(),
+            "alat_id" => $request->alat_id,
+            "kategori_id" => $alat->kategori_id,
+            "tanggal_pengembalian" => $request->tanggal_pengembalian,
+            "persetujuan" => $request->persetujuan
+
+        ]);
+
+        return redirect("/peminjaman");
     }
 
     /**
@@ -81,5 +104,8 @@ class PeminjamanController extends Controller
     public function destroy(Peminjaman $peminjaman)
     {
         //
+        $peminjaman->delete();
+
+        return redirect("/peminjaman");
     }
 }
