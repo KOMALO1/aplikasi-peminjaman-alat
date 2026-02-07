@@ -35,7 +35,7 @@
         <label>Persetujuan</label>
         <select name="persetujuan">
 
-            <option value="menunggu">Menunggu</option disabled selected>
+            <option value="menunggu">Menunggu</option>
             <option value="diterima">Diterima</option>
             <option value="ditolak">Ditolak</option>
 

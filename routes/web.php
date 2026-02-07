@@ -5,7 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\UserController;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,6 +15,13 @@ Route::get('/', function () {
 Route::get("/login", [AuthController::class, "index"])->name("login");
 
 Route::post("/login", [AuthController::class, "login"]);
+
+Route::post("/logout", function () {
+
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+});
 
 Route::resource("/peminjaman", PeminjamanController::class)->middleware("auth");
 Route::resource("/user", UserController::class);

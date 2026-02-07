@@ -10,6 +10,13 @@
 
 <body>
 
+    <form action="/logout" method="post">
+        @csrf
+
+        <button type="submit">Logout</button>
+
+    </form>
+
     <table border="2">
         <tr>
             <th>No</th>

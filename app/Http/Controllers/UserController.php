@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+
 class UserController extends Controller
 {
     /**
@@ -61,6 +62,9 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
+        return view("admin.user.ubahuser", compact("user"));
+
+        return redirect("/user");
     }
 
     /**
@@ -68,6 +72,15 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
+        $user->update([
+
+            "name" => $request->name,
+            "password" => Hash::make($request->password),
+            "role" => $request->role
+
+        ]);
+        return redirect("/user");
         //
     }
 
@@ -77,5 +90,9 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+
+        $user->delete();
+
+        return redirect("/user");
     }
 }
